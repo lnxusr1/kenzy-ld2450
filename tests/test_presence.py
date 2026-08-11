@@ -6,7 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from kenzy_ld2450.presence import PresenceTracker
-from kenzy_ld2450.protocol import FrameParser, Frame, Target
+from kenzy_ld2450.protocol import Frame, FrameParser, Target
 
 
 def _t(x: int = 0, y: int = 2000, speed: int = 0) -> Target:

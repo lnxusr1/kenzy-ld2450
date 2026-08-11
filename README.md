@@ -1,4 +1,6 @@
-# kenzy-ld2450
+# KENZY-LD2450 &middot; [![GitHub license](https://img.shields.io/github/license/lnxusr1/kenzy-ld2450.svg)](https://github.com/lnxusr1/kenzy-ld2450/blob/main/LICENSE) ![Python Versions](https://img.shields.io/pypi/pyversions/kenzy-ld2450.svg) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/lnxusr1/kenzy-ld2450.svg)
+
+**[kenzy.ai](https://kenzy.ai)** &middot; [Documentation](https://docs.kenzy.ai/) &middot; [Install](https://docs.kenzy.ai/getting-started/)
 
 In-node mmWave presence for [Kenzy](https://kenzy.ai): an HLK-LD2450 radar on
 the node's UART gives every room *level* presence — someone sitting still is

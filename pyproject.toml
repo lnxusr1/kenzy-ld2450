@@ -10,9 +10,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = [
-  # TODO(release): tighten to "kenzy>=5.1,<6" when the plugin seam ships in a
-  # tagged kenzy. 5.0.8 is the floor only because dev installs against it.
-  "kenzy>=5.0.8",
+  # The plugin seam (API v1) ships in kenzy 5.1.0; the <6 cap is the promise
+  # that a joint upgrade (or the load gate) revisits before a breaking core.
+  "kenzy>=5.1.0,<6",
   "pyserial>=3.5",
 ]
 
@@ -27,6 +27,13 @@ kenzy_ld2450 = ["panel/*"]
 
 [tool.ruff]
 line-length = 100
+
+[tool.ruff.lint]
+# Kenzy's exact selection — an EXPLICIT select, because an absent one means
+# "whatever this ruff version's defaults are", which is a different linter on
+# every machine (CI's newer ruff shipped G/BLE/S rules that fight the
+# deliberate fail-closed except pattern; the local one didn't).
+select = ["E", "F", "I", "UP"]
 
 [tool.mypy]
 python_version = "3.11"

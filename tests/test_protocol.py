@@ -10,6 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from conftest import frame, slot
+
 from kenzy_ld2450.protocol import FRAME_LEN, HEADER, FrameParser, decode_frame
 
 FIXTURE = Path(__file__).parent / "fixtures" / "office-empty-15s.bin"

@@ -136,7 +136,9 @@ async def on_plugin_frame(ctx: Any, node_id: str, payload: dict[str, Any]) -> No
         # per-heartbeat — the state dict remembers we said it.
         if not state.get("warned_no_room"):
             state["warned_no_room"] = True
-            ctx.log.warning("[%s] presence from a node with no room — not fed to occupancy", node_id)
+            ctx.log.warning(
+                "[%s] presence from a node with no room — not fed to occupancy", node_id
+            )
         return
     if ctx.occupancy is not None:
         ctx.occupancy.on_evidence(
