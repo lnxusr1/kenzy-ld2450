@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kenzy-ld2450"
+version = "0.1.0"
+description = "In-node mmWave presence for Kenzy: an HLK-LD2450 radar on the node's UART"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  # TODO(release): tighten to "kenzy>=5.1,<6" when the plugin seam ships in a
+  # tagged kenzy. 5.0.8 is the floor only because dev installs against it.
+  "kenzy>=5.0.8",
+  "pyserial>=3.5",
+]
+
+[project.entry-points."kenzy.plugins.v1"]
+ld2450 = "kenzy_ld2450"
+
+[tool.setuptools]
+packages = ["kenzy_ld2450"]
+
+[tool.setuptools.package-data]
+kenzy_ld2450 = ["panel/*"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

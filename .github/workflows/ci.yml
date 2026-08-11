@@ -1,0 +1,55 @@
+name: CI
+
+# The same gates the workstation runs (pytest / ruff / mypy strict), against
+# the kenzy the plugin actually targets.
+#
+# Until a kenzy release ships the plugin seam, that kenzy is GIT MAIN — the
+# PyPI 5.0.x line has no kenzy.plugins module and every test here would fail
+# for environment reasons, not code reasons. When the seam-bearing release
+# tags, switch the install line to plain "kenzy[server,dev]" so CI proves the
+# published pairing instead of the development one.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: ruff + mypy + pytest (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install
+        # server extra: the tests drive a real OccupancyTracker and the
+        # integrations hub. dev extra: pytest-asyncio, ruff, mypy — the same
+        # toolchain versions the core repo gates with.
+        run: |
+          pip install "kenzy[server,dev] @ git+https://github.com/lnxusr1/kenzy.git"
+          pip install -e . types-pyserial
+
+      - name: ruff
+        run: ruff check kenzy_ld2450/ tests/
+
+      - name: mypy
+        run: mypy kenzy_ld2450/
+
+      - name: pytest
+        run: pytest
